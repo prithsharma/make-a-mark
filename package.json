@@ -6,7 +6,10 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "lint": "eslint",
     "format": "prettier --write 'src/**/*.{js,jsx}'",
-    "format:check": "prettier -c 'src/**/*.{js,jsx}'"
+    "format:check": "prettier -c 'src/**/*.{js,jsx}'",
+    "test": "jest",
+    "test:watch": "yarn test --watch",
+    "coverage": "yarn run test --coverage"
   },
   "dependencies": {
     "react": "^16.8.6",
@@ -21,6 +24,12 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-native": "^3.6.0",
-    "prettier": "^1.17.0"
+    "jest": "^24.7.1",
+    "prettier": "^1.17.0",
+    "react-native-testing-library": "^1.7.0",
+    "react-test-renderer": "^16.8.6"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }
