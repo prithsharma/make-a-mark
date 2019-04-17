@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "rn": "node node_modules/react-native/local-cli/cli.js",
+    "start": "yarn rn start",
+    "ios": "yarn rn run-ios",
+    "android": "yarn rn run-android",
     "lint": "eslint",
     "format": "prettier --write 'src/**/*.{js,jsx}'",
     "format:check": "prettier -c 'src/**/*.{js,jsx}'",
