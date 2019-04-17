@@ -53,7 +53,8 @@ module.exports = {
     'react-native/no-unused-styles': ['error'],
     'react-native/no-color-literals': ['error'],
 
-    'no-restricted-globals': ['error', 'navigator']
+    'no-restricted-globals': ['error', 'navigator'],
+    'import/no-extraneous-dependencies': true
   },
 };
 

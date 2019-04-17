@@ -9,14 +9,30 @@
     "format:check": "prettier -c 'src/**/*.{js,jsx}'",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "coverage": "yarn run test --coverage"
+    "coverage": "yarn run test --coverage",
+    "storybook": "watch rnstl ./src --wait=100 | storybook start | yarn start --projectRoot storybook --watchFolders $PWD"
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./src"
+      ],
+      "pattern": "**/*.stories.js",
+      "outputFile": "./storybook/storyLoader.js"
+    }
   },
   "dependencies": {
     "react": "^16.8.6",
     "react-native": "0.59.4"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^4.1.16",
+    "@storybook/addon-links": "^4.1.16",
+    "@storybook/addons": "^4.1.16",
+    "@storybook/react-native": "^4.1.16",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
+    "babel-runtime": "^6.26.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
@@ -26,6 +42,9 @@
     "eslint-plugin-react-native": "^3.6.0",
     "jest": "^24.7.1",
     "prettier": "^1.17.0",
+    "prop-types": "^15.7.2",
+    "react-dom": "^16.8.6",
+    "react-native-storybook-loader": "^1.8.0",
     "react-native-testing-library": "^1.7.0",
     "react-test-renderer": "^16.8.6"
   },
