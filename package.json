@@ -7,6 +7,7 @@
     "start": "yarn rn start",
     "ios": "yarn rn run-ios",
     "android": "yarn rn run-android",
+    "clear-rn-cache": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf $TMPDIR/metro* && rm -rf $TMPDIR/haste-*",
     "lint": "eslint",
     "format": "prettier --write 'src/**/*.{js,jsx}'",
     "format:check": "prettier -c 'src/**/*.{js,jsx}'",
