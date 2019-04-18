@@ -11,7 +11,9 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Snackbar from 'react-native-snackbar';
 import PropTypes from 'prop-types';
+import debounce from 'lodash.debounce';
 import GeocodingClient from '../../lib/mapsClient';
+
 
 let styles;
 
@@ -99,7 +101,7 @@ export default class Geocoder extends Component {
       <View style={[styles.container, style]}>
         <View style={styles.inputContainer}>
           <TextInput
-            onChangeText={text => this.onQuery(text)}
+            onChangeText={debounce(text => this.onQuery(text), 500)}
             style={styles.input}
             ref={(ref) => { this.input = ref; }}
           />
