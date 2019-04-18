@@ -14,7 +14,15 @@ export default class HomeScreen extends Component {
     super(props);
     this.state = {
       center: null,
+      markers: [],
     };
+  }
+
+  onLocationSelect = (locationObj) => {
+    this.setState(state => ({
+      center: locationObj.center,
+      markers: [...state.markers, locationObj],
+    }));
   }
 
   render() {
@@ -26,6 +34,7 @@ export default class HomeScreen extends Component {
         />
         <Geocoder
           style={styles.searchBar}
+          onResultSelect={this.onLocationSelect}
         />
         <LocationCard style={styles.markersCarousel} />
       </View>
