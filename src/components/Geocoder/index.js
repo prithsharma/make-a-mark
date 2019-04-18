@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -6,12 +6,19 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import GeocodingClient from '../../lib/mapsClient';
 
 let styles;
 
-export default function Geocoder() {
-  // eslint-disable-next-line react/prop-types
-  function renderResultItem({ item }) {
+export default class Geocoder extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      results: [],
+    };
+  }
+
+  static renderResultItem({ item }) {
     return (
       <Text>
         {item.title}
@@ -19,20 +26,33 @@ export default function Geocoder() {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <TextInput style={styles.input} />
-      <FlatList
-        data={[
-          { key: 'result1', title: 'Place 1' },
-          { key: 'result2', title: 'Place 2' },
-          { key: 'result3', title: 'Place 3' },
-        ]}
-        renderItem={renderResultItem}
-        style={styles.resultList}
-      />
-    </View>
-  );
+  async onQuery(text) {
+    try {
+      const response = await GeocodingClient.forwardGeocode({
+        query: text,
+      }).send();
+      this.setState({ results: response.body.features.map(f => f.place_name) });
+    } catch (e) {
+      // TODO: tell the user about it
+    }
+  }
+
+  render() {
+    const { results } = this.state;
+    return (
+      <View style={styles.container}>
+        <TextInput
+          onChangeText={text => this.onQuery(text)}
+          style={styles.input}
+        />
+        <FlatList
+          data={results.map(f => ({ key: f, title: f }))}
+          renderItem={this.constructor.renderResultItem}
+          style={styles.resultList}
+        />
+      </View>
+    );
+  }
 }
 
 styles = StyleSheet.create({

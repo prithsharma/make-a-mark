@@ -5,6 +5,4 @@ import Config from 'react-native-config';
 const baseClient = mapboxClient({ accessToken: Config.MAPBOX_ACCESS_TOKEN });
 const GeocodingClient = geocoding(baseClient);
 
-export default {
-  GeocodingClient,
-};
+export default GeocodingClient;
