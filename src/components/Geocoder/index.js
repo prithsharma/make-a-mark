@@ -17,6 +17,7 @@ export default class Geocoder extends Component {
     super(props);
     this.state = {
       results: [],
+      showResults: true,
     };
   }
 
@@ -31,40 +32,56 @@ export default class Geocoder extends Component {
     try {
       const response = await GeocodingClient.forwardGeocode({
         query: text,
+        countries: ['DE'],
       }).send();
       console.log(response.body.features);
-      this.setState({ results: response.body.features });
+      this.setState({
+        results: response.body.features,
+        showResults: true,
+      });
     } catch (e) {
       // TODO: tell the user about it
     }
   }
 
-  renderResultItem = ({ item }) => {
+  resultSelectCallback(item) {
     const {
       onResultSelect,
     } = this.props;
-
-    return (
-      <Text onPress={() => onResultSelect(item)}>
-        {item.place_name}
-      </Text>
-    );
+    this.setState({
+      showResults: false,
+    });
+    onResultSelect(item);
   }
 
+  renderResultItem = ({ item }) => (
+    <Text onPress={() => this.resultSelectCallback(item)}>
+      {item.place_name}
+    </Text>
+  )
+
   render() {
-    const { results } = this.state;
+    const {
+      results,
+      showResults,
+    } = this.state;
     const { style } = this.props;
+
     return (
       <View style={[styles.container, style]}>
         <TextInput
           onChangeText={text => this.onQuery(text)}
           style={styles.input}
         />
-        <FlatList
-          data={results.map(result => ({ key: result.id, ...result }))}
-          renderItem={this.renderResultItem}
-          style={styles.resultList}
-        />
+        {
+          showResults && (
+            <FlatList
+              data={results.map(result => ({ key: result.id, ...result }))}
+              renderItem={this.renderResultItem}
+              style={styles.resultList}
+            />
+          )
+        }
       </View>
     );
   }

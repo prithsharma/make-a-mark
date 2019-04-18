@@ -15,12 +15,41 @@ export default class MapView extends Component {
     this.state = {};
   }
 
+  componentWillReceiveProps(newProps) {
+    const { center } = this.props;
+    if (center !== newProps.center) {
+      this.map.setCamera({
+        centerCoordinate: newProps.center,
+        duration: 1000,
+        zoom: 10,
+      });
+    }
+  }
+
   render() {
+    const {
+      center,
+    } = this.props;
+
     return (
       <MapboxGL.MapView
         style={styles.mapContainer}
         styleURL="mapbox://styles/mapbox/dark-v9"
-      />
+        visibleCoordinateBounds={[
+          [10.018343 - 5, 51.133481 - 5],
+          [10.018343 + 5, 51.133481 + 5],
+        ]}
+        ref={(ref) => { this.map = ref; }}
+      >
+        {
+          center && (
+            <MapboxGL.PointAnnotation
+              id="marker"
+              coordinate={center}
+            />
+          )
+        }
+      </MapboxGL.MapView>
     );
   }
 }
