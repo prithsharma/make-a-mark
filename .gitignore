@@ -60,3 +60,6 @@ coverage
 
 # Storybook
 storybook/storyLoader.js
+
+# end
+.env
