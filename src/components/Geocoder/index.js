@@ -5,7 +5,9 @@ import {
   Text,
   TextInput,
   View,
+  ViewPropTypes,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import GeocodingClient from '../../lib/mapsClient';
 
 let styles;
@@ -39,8 +41,9 @@ export default class Geocoder extends Component {
 
   render() {
     const { results } = this.state;
+    const { style } = this.props;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <TextInput
           onChangeText={text => this.onQuery(text)}
           style={styles.input}
@@ -55,12 +58,23 @@ export default class Geocoder extends Component {
   }
 }
 
+Geocoder.propTypes = {
+  style: ViewPropTypes.style,
+  // showResults: PropTypes.bool,
+};
+Geocoder.defaultProps = {
+  style: {},
+  // showResults: true,
+};
+
 styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: 'rgba(216, 216, 216, 0.8)',
   },
   input: {
-    borderWidth: 1,
     borderRadius: 5,
   },
   resultList: {
