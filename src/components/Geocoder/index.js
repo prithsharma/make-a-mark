@@ -8,6 +8,7 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Snackbar from 'react-native-snackbar';
 import PropTypes from 'prop-types';
 import GeocodingClient from '../../lib/mapsClient';
 
@@ -40,7 +41,10 @@ export default class Geocoder extends Component {
         showResults: true,
       });
     } catch (e) {
-      // TODO: tell the user about it
+      Snackbar.show({
+        title: 'Error fetching location results. Please try again later.',
+        duration: Snackbar.LENGTH_LONG,
+      });
     }
   }
 
