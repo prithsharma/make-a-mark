@@ -17,8 +17,12 @@ export default function LocationCard(props) {
   } = props;
   return (
     <View style={[styles.container, style]}>
-      <Text>{title}</Text>
-      <Text>{address}</Text>
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
+      <Text style={styles.subtext} numberOfLines={3}>
+        {address}
+      </Text>
     </View>
   );
 }
@@ -36,10 +40,20 @@ LocationCard.defaultProps = {
 
 styles = StyleSheet.create({
   container: {
-    // margin: 10,
+    width: '98%',
+    margin: 2,
     borderRadius: 5,
     padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-    opacity: 0.8,
+    justifyContent: 'space-evenly',
+    height: 120,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  subtext: {
+    fontSize: 16,
+    marginTop: 10,
   },
 });

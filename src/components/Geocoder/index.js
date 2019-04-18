@@ -58,6 +58,7 @@ export default class Geocoder extends Component {
     this.setState({
       showResults: false,
     });
+    this.input.clear();
     this.input.blur();
     onResultSelect(item);
   }
@@ -84,7 +85,7 @@ export default class Geocoder extends Component {
             ref={(ref) => { this.input = ref; }}
           />
           <Icon
-            name="md-close"
+            name="md-refresh"
             size={25}
             onPress={this.clearCallback}
           />
