@@ -20,23 +20,35 @@ export default class Geocoder extends Component {
     };
   }
 
-  static renderResultItem({ item }) {
-    return (
-      <Text>
-        {item.title}
-      </Text>
-    );
-  }
-
   async onQuery(text) {
+    if (text.trim() === '') {
+      this.setState({
+        results: [],
+      });
+      return;
+    }
+
     try {
       const response = await GeocodingClient.forwardGeocode({
         query: text,
       }).send();
-      this.setState({ results: response.body.features.map(f => f.place_name) });
+      console.log(response.body.features);
+      this.setState({ results: response.body.features });
     } catch (e) {
       // TODO: tell the user about it
     }
+  }
+
+  renderResultItem = ({ item }) => {
+    const {
+      onResultSelect,
+    } = this.props;
+
+    return (
+      <Text onPress={() => onResultSelect(item)}>
+        {item.place_name}
+      </Text>
+    );
   }
 
   render() {
@@ -49,8 +61,8 @@ export default class Geocoder extends Component {
           style={styles.input}
         />
         <FlatList
-          data={results.map(f => ({ key: f, title: f }))}
-          renderItem={this.constructor.renderResultItem}
+          data={results.map(result => ({ key: result.id, ...result }))}
+          renderItem={this.renderResultItem}
           style={styles.resultList}
         />
       </View>
@@ -60,11 +72,13 @@ export default class Geocoder extends Component {
 
 Geocoder.propTypes = {
   style: ViewPropTypes.style,
+  onResultSelect: PropTypes.func,
   // showResults: PropTypes.bool,
 };
 Geocoder.defaultProps = {
   style: {},
   // showResults: true,
+  onResultSelect: Function.prototype,
 };
 
 styles = StyleSheet.create({
