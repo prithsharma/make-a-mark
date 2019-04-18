@@ -7,6 +7,7 @@ import {
   View,
   ViewPropTypes,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import GeocodingClient from '../../lib/mapsClient';
 
@@ -43,6 +44,13 @@ export default class Geocoder extends Component {
     }
   }
 
+  clearCallback = () => {
+    const { onPressClear } = this.props;
+    this.input.clear();
+    this.input.blur();
+    onPressClear();
+  }
+
   resultSelectCallback(item) {
     const {
       onResultSelect,
@@ -50,6 +58,7 @@ export default class Geocoder extends Component {
     this.setState({
       showResults: false,
     });
+    this.input.blur();
     onResultSelect(item);
   }
 
@@ -68,10 +77,18 @@ export default class Geocoder extends Component {
 
     return (
       <View style={[styles.container, style]}>
-        <TextInput
-          onChangeText={text => this.onQuery(text)}
-          style={styles.input}
-        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            onChangeText={text => this.onQuery(text)}
+            style={styles.input}
+            ref={(ref) => { this.input = ref; }}
+          />
+          <Icon
+            name="md-close"
+            size={25}
+            onPress={this.clearCallback}
+          />
+        </View>
         {
           showResults && (
             <FlatList
@@ -89,12 +106,12 @@ export default class Geocoder extends Component {
 Geocoder.propTypes = {
   style: ViewPropTypes.style,
   onResultSelect: PropTypes.func,
-  // showResults: PropTypes.bool,
+  onPressClear: PropTypes.func,
 };
 Geocoder.defaultProps = {
   style: {},
-  // showResults: true,
   onResultSelect: Function.prototype,
+  onPressClear: Function.prototype,
 };
 
 styles = StyleSheet.create({
@@ -104,8 +121,14 @@ styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'rgba(216, 216, 216, 0.8)',
   },
+  inputContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+    alignItems: 'center',
+  },
   input: {
     borderRadius: 5,
+    flex: 1,
   },
   resultList: {
     maxHeight: 100,

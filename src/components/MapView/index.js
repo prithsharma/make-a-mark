@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 let styles;
+const DEFAULT_CENTER = [10.018343, 51.133481];
 
 export default class MapView extends Component {
   constructor(props) {
@@ -17,10 +18,17 @@ export default class MapView extends Component {
 
   componentWillReceiveProps(newProps) {
     const { center } = this.props;
-    if (center !== newProps.center) {
+
+    if (!newProps.center) {
+      this.map.setCamera({
+        centerCoordinate: DEFAULT_CENTER,
+        duration: 700,
+        zoom: 5,
+      });
+    } else if (center !== newProps.center) {
       this.map.setCamera({
         centerCoordinate: newProps.center,
-        duration: 1000,
+        duration: 700,
         zoom: 10,
       });
     }

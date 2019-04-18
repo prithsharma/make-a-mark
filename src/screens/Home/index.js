@@ -19,15 +19,26 @@ export default class HomeScreen extends Component {
   }
 
   onLocationSelect = (locationObj) => {
-    this.setState(state => ({
-      center: locationObj.center,
-      markers: [...state.markers, locationObj],
-    }));
+    this.setState((state) => {
+      let newMarkers = state.markers;
+      if (!state.markers.map(m => m.id).includes(locationObj.id)) {
+        newMarkers = [...state.markers, locationObj];
+      }
+      return {
+        center: locationObj.center,
+        markers: newMarkers,
+      };
+    });
+  }
+
+  reset = () => {
+    this.setState({
+      center: null,
+    });
   }
 
   render() {
     const { center, markers } = this.state;
-    console.log('home', markers);
     return (
       <View style={styles.container}>
         <MapView
@@ -37,6 +48,7 @@ export default class HomeScreen extends Component {
         <Geocoder
           style={styles.searchBar}
           onResultSelect={this.onLocationSelect}
+          onPressClear={this.reset}
         />
         <LocationCard style={styles.markersCarousel} />
       </View>
