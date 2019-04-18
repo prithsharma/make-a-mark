@@ -34,7 +34,6 @@ export default class Geocoder extends Component {
         query: text,
         countries: ['DE'],
       }).send();
-      console.log(response.body.features);
       this.setState({
         results: response.body.features,
         showResults: true,

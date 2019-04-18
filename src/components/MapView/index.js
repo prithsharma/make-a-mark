@@ -26,11 +26,26 @@ export default class MapView extends Component {
     }
   }
 
-  render() {
+  renderMarkers() {
     const {
-      center,
+      markedLocations,
     } = this.props;
 
+    const markers = markedLocations.map(({ center: coordinate }) => {
+      const key = `${coordinate[0]},${coordinate[1]}`;
+      return (
+        <MapboxGL.PointAnnotation
+          key={key}
+          id={`marker${key}`}
+          coordinate={coordinate}
+        />
+      );
+    });
+
+    return markers;
+  }
+
+  render() {
     return (
       <MapboxGL.MapView
         style={styles.mapContainer}
@@ -41,14 +56,7 @@ export default class MapView extends Component {
         ]}
         ref={(ref) => { this.map = ref; }}
       >
-        {
-          center && (
-            <MapboxGL.PointAnnotation
-              id="marker"
-              coordinate={center}
-            />
-          )
-        }
+        {this.renderMarkers()}
       </MapboxGL.MapView>
     );
   }
@@ -56,9 +64,11 @@ export default class MapView extends Component {
 
 MapView.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number),
+  markedLocations: PropTypes.arrayOf(PropTypes.object),
 };
 MapView.defaultProps = {
   center: null,
+  markedLocations: [],
 };
 
 styles = StyleSheet.create({

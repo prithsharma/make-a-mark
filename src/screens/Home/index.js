@@ -26,11 +26,13 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    const { center } = this.state;
+    const { center, markers } = this.state;
+    console.log('home', markers);
     return (
       <View style={styles.container}>
         <MapView
           center={center}
+          markedLocations={markers}
         />
         <Geocoder
           style={styles.searchBar}
