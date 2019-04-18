@@ -49,6 +49,19 @@ export default class HomeScreen extends Component {
     this.setState({
       center: null,
     });
+    this.carousel.snapToItem(0, true, false);
+  }
+
+  loadMarker = (slideIndex) => {
+    if (slideIndex === 0) {
+      this.reset();
+    } else {
+      this.setState(
+        ({ markers }) => ({
+          center: markers[slideIndex - 1].center,
+        }),
+      );
+    }
   }
 
   static renderLocationCard({ item }) {
