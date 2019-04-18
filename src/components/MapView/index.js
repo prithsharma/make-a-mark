@@ -39,15 +39,13 @@ export default class MapView extends Component {
       markedLocations,
     } = this.props;
 
-    const markers = markedLocations.map(({ id: key, center: coordinate }) => {
-      return (
-        <MapboxGL.PointAnnotation
-          key={key}
-          id={`marker${key}`}
-          coordinate={coordinate}
-        />
-      );
-    });
+    const markers = markedLocations.map(({ id: key, center: coordinate }) => (
+      <MapboxGL.PointAnnotation
+        key={key}
+        id={`marker${key}`}
+        coordinate={coordinate}
+      />
+    ));
 
     return markers;
   }

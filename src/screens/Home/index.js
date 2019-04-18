@@ -10,7 +10,7 @@ import MapView from '../../components/MapView';
 import LocationCard from '../../components/LocationCard';
 
 let styles;
-const { width: vpWidth, height: vpHeight } = Dimensions.get('window');
+const { width: vpWidth } = Dimensions.get('window');
 const CAROUSEL_WIDTH = vpWidth;
 const CAROUSEL_ITEM_WIDTH = vpWidth * 0.67;
 const HELP_SLIDE = { id: 'HELP' };
