@@ -26,6 +26,7 @@
     }
   },
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.6.0",
     "@mapbox/react-native-mapbox-gl": "https://github.com/nitaliano/react-native-mapbox-gl.git#bc5f589d3782a7d3ed7d78c9050b2fd12ea6c77a",
     "react": "^16.8.6",
     "react-native": "0.59.4",
