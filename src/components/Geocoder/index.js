@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
   ViewPropTypes,
 } from 'react-native';
@@ -53,6 +54,9 @@ export default class Geocoder extends Component {
     this.input.clear();
     this.input.blur();
     onPressClear();
+    this.setState({
+      showResults: false,
+    });
   }
 
   resultSelectCallback(item) {
@@ -67,10 +71,21 @@ export default class Geocoder extends Component {
     onResultSelect(item);
   }
 
+  static renderResultSeparator() {
+    return (
+      <View style={styles.separator} />
+    );
+  }
+
   renderResultItem = ({ item }) => (
-    <Text onPress={() => this.resultSelectCallback(item)}>
-      {item.place_name}
-    </Text>
+    <TouchableOpacity
+      onPress={() => this.resultSelectCallback(item)}
+      style={styles.resultItem}
+    >
+      <Text>
+        {item.place_name}
+      </Text>
+    </TouchableOpacity>
   )
 
   render() {
@@ -89,7 +104,7 @@ export default class Geocoder extends Component {
             ref={(ref) => { this.input = ref; }}
           />
           <Icon
-            name="md-refresh"
+            name="md-expand"
             size={25}
             onPress={this.clearCallback}
           />
@@ -99,6 +114,7 @@ export default class Geocoder extends Component {
             <FlatList
               data={results.map(result => ({ key: result.id, ...result }))}
               renderItem={this.renderResultItem}
+              ItemSeparatorComponent={this.constructor.renderResultSeparator}
               style={styles.resultList}
             />
           )
@@ -136,6 +152,13 @@ styles = StyleSheet.create({
     flex: 1,
   },
   resultList: {
-    maxHeight: 100,
+    maxHeight: 250,
+  },
+  resultItem: {
+    padding: 8,
+  },
+  separator: {
+    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+    height: 1,
   },
 });

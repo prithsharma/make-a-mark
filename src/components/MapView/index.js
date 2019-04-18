@@ -22,13 +22,13 @@ export default class MapView extends Component {
     if (!newProps.center) {
       this.map.setCamera({
         centerCoordinate: DEFAULT_CENTER,
-        duration: 700,
-        zoom: 5,
+        duration: 500,
+        zoom: 4,
       });
     } else if (center !== newProps.center) {
       this.map.setCamera({
         centerCoordinate: newProps.center,
-        duration: 700,
+        duration: 500,
         zoom: 12,
       });
     }
