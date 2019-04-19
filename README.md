@@ -1,12 +1,10 @@
 # Make A Mark
 
 React Native based mobile app experimenting with map rendering in apps.
-<img
-    src="https://github.com/prithsharma/make-a-mark/raw/a7683f3badb761303b3cb318a39906aee8b219a9/demo/make-a-mark.gif"
-    alt="Demo GIF"
-    width="288"
-    height="512"
-/>
+
+App Demo             |    Storybook
+:-------------------:|:-------------------------:
+<img src="./demo/make-a-mark.gif" alt="Demo GIF" width="288" height="512" /> | <img src="./demo/storybook.gif" alt="Demo GIF" width="288" height="512" />
 
 ## Instructions for dev setup
 
@@ -34,6 +32,10 @@ agreed upon pre-shared access token, based on JWT.
 That means not only can it be used at any other place without dependencies, all code dependent on
 the geocoding service is isolated so that it can be plugged out and replaced with anything else if
 needed.
+- Since the app is all about maps and geocoding, the third party service is a clear single point
+of failure. This is understood and a possible way to work around this is to have a fallback UX
+devoid of the geocoding search(only map based). And have a fallback third party service in case the
+primary service doesn't work. None of them were easy enough for v1.
 
 ## Notes
 
