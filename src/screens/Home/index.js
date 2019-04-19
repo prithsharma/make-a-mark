@@ -3,10 +3,12 @@ import {
   Dimensions,
   View,
 } from 'react-native';
+import { connect } from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 import Geocoder from '../../components/Geocoder';
 import MapView from '../../components/MapView';
 import LocationCard from '../../components/LocationCard';
+import { getMarkedLocations } from '../../state';
 import styles from './index.styles';
 
 const { width: vpWidth } = Dimensions.get('window');
@@ -14,7 +16,7 @@ const CAROUSEL_WIDTH = vpWidth;
 const CAROUSEL_ITEM_WIDTH = vpWidth * 0.67;
 const HELP_SLIDE = { id: 'HELP' };
 
-export default class HomeScreen extends Component {
+export class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -111,3 +113,11 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    markers: getMarkedLocations(state),
+  };
+}
+
+export default connect(mapStateToProps)(HomeScreen);
