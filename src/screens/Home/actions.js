@@ -1,6 +1,7 @@
 import Snackbar from 'react-native-snackbar';
 import GeocodingClient from '../../lib/mapsClient';
 import { get, post } from '../../lib/request';
+import Logger from '../../lib/logger';
 
 
 export async function getAllMarkers() {
@@ -26,10 +27,11 @@ export async function getAllMarkers() {
       );
       return geocodeResults.filter(g => g);
     }
+
     return [];
   } catch (e) {
     Snackbar.show({ title: 'Unable to connect to the servers.' });
-    console.log(e);
+    Logger.error(e);
     return [];
   }
 }
@@ -45,7 +47,7 @@ export async function addMarker(locationObj) {
     }
   } catch (e) {
     Snackbar.show({ title: 'Unable to connect to the servers.' });
-    console.log(e);
+    Logger.error(e);
   }
 }
 
@@ -56,9 +58,10 @@ export async function removeMarker(locationObj) {
 
     if (!response.ok) {
       Snackbar.show({ title: 'Error syncing with the servers.' });
+      Logger.error(response);
     }
   } catch (e) {
     Snackbar.show({ title: 'Unable to connect to the servers.' });
-    console.log(e);
+    Logger.error(e);
   }
 }
