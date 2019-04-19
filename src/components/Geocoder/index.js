@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Snackbar from 'react-native-snackbar';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
+import Spinner from '../Spinner';
 import GeocodingClient from '../../lib/mapsClient';
 
 
@@ -22,11 +23,16 @@ export default class Geocoder extends Component {
     super(props);
     this.state = {
       results: [],
+      isLoading: false,
       showResults: true,
     };
   }
 
   async onQuery(text) {
+    this.setState({
+      isLoading: true,
+    });
+
     if (text.trim() === '') {
       this.setState({
         results: [],
@@ -49,6 +55,10 @@ export default class Geocoder extends Component {
         duration: Snackbar.LENGTH_LONG,
       });
     }
+
+    this.setState({
+      isLoading: false,
+    });
   }
 
   clearCallback = () => {
@@ -90,6 +100,21 @@ export default class Geocoder extends Component {
     </TouchableOpacity>
   )
 
+  renderIcon() {
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return <Spinner visible />;
+    }
+
+    return (
+      <Icon
+        name="md-expand"
+        size={25}
+        onPress={this.clearCallback}
+      />
+    );
+  }
+
   render() {
     const {
       results,
@@ -105,11 +130,7 @@ export default class Geocoder extends Component {
             style={styles.input}
             ref={(ref) => { this.input = ref; }}
           />
-          <Icon
-            name="md-expand"
-            size={25}
-            onPress={this.clearCallback}
-          />
+          {this.renderIcon()}
         </View>
         {
           showResults && (
