@@ -68,3 +68,12 @@ set of features.
 - [ ] Refactor out all geocoding service interactions to a service for better abstraction and
 isolation. This is not straightforward. Would lead to the `Geocoder` component getting coupled with
 a service and thus not easily reusable.
+
+### Known Issues
+
+- Due to inaccuracies in coordinate decimal comparisons between storing and operating, sometimes
+the delete operation on the markers doesn't work well.
+  - This is primarily because the coordinate is being stored as a decimal and the coordinate matching
+on the API server looks for an exact match, doesn't approximate comparison.
+  - Another ideal way to work around this would be to communicate with `Marker.id` while operating
+  on markers, this would eliminate the need for coordinate comparisons for retrieving markers.

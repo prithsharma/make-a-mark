@@ -126,7 +126,7 @@ export default class Geocoder extends Component {
       <View style={[styles.container, style]}>
         <View style={styles.inputContainer}>
           <TextInput
-            onChangeText={debounce(text => this.onQuery(text), 400)}
+            onChangeText={debounce(text => this.onQuery(text), 200)}
             style={styles.input}
             ref={(ref) => { this.input = ref; }}
           />
