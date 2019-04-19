@@ -6,11 +6,11 @@ export default StyleSheet.create({
   },
   searchBar: {
     position: 'absolute',
-    top: 10,
+    top: 20,
   },
   markersCarousel: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 20,
   },
   slideStyle: {
     minHeight: 140,

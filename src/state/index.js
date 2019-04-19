@@ -5,7 +5,7 @@ import {
 } from './locations';
 
 
-export { markLocation, unmarkLocation } from './locations';
+export { addMarker, removeMarker } from './locations';
 export default combineReducers({
   locationsById: byIdReducer,
   markedLocations: markersReducer,
