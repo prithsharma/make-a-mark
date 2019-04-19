@@ -15,3 +15,4 @@ export default createReducer(initialState, {
   [MARK]: () => { },
   [UNMARK]: () => { },
 });
+export * from './selectors';
