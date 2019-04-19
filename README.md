@@ -2,11 +2,15 @@
 
 React Native based mobile app experimenting with map rendering in apps.
 
-## APK for download - [v0.1](https://github.com/prithsharma/make-a-mark/releases/download/0.1/make-a-mark.apk)
+### APK for download - [v0.1](https://github.com/prithsharma/make-a-mark/releases/download/0.1/make-a-mark.apk)
 
-App Demo             |    Storybook
-:-------------------:|:-------------------------:
-<img src="./demo/make-a-mark.gif" alt="Demo GIF" width="432" height="768" /> | <img src="./demo/storybook.gif" alt="Demo GIF" width="432" height="768" />
+## App Demo
+
+<img src="./demo/make-a-mark.gif" alt="Demo GIF" width="432" height="768" />
+
+## Storybook Demo
+
+<img src="./demo/storybook.gif" alt="Demo GIF" width="432" height="768" />
 
 ## Instructions for dev setup
 
