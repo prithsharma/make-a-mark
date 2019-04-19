@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {
-  Dimensions,
   View,
+  Dimensions,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import Snackbar from 'react-native-snackbar';
 import Geocoder from '../../components/Geocoder';
 import MapView from '../../components/MapView';
 import LocationCard from '../../components/LocationCard';
+import { FullScreenSpinner } from '../../components/Spinner';
 import styles from './index.styles';
-import { addMarker, removeMarker } from './actions';
+import { getAllMarkers, addMarker, removeMarker } from './actions';
 
 
 const { width: vpWidth } = Dimensions.get('window');
@@ -22,7 +24,22 @@ export default class HomeScreen extends Component {
     this.state = {
       center: null,
       markers: [],
+      isLoading: false,
     };
+  }
+
+  async componentDidMount() {
+    this.setState({ isLoading: true });
+    try {
+      const markers = await getAllMarkers();
+      this.setState({
+        markers,
+        isLoading: false,
+      });
+    } catch (e) {
+      Snackbar.show({ title: 'Error fetching saved markers' });
+      this.setState({ isLoading: false });
+    }
   }
 
   onLocationSelect = (locationObj) => {
@@ -108,7 +125,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    const { center, markers } = this.state;
+    const { center, markers, isLoading } = this.state;
     return (
       <View style={styles.container}>
         <MapView
@@ -131,6 +148,7 @@ export default class HomeScreen extends Component {
           onSnapToItem={this.loadMarker}
         // contentContainerCustomStyle={{ flex: 1 }}
         />
+        <FullScreenSpinner visible={isLoading} />
       </View>
     );
   }
