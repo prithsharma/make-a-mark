@@ -1,8 +1,23 @@
 import Snackbar from 'react-native-snackbar';
-import { post } from '../../lib/request';
+import { get, post } from '../../lib/request';
 
 
-// eslint-disable-next-line import/prefer-default-export
+export async function getAllMarkers() {
+  try {
+    const response = await get('/markers');
+    const responseObj = await response.json();
+
+    if (response.ok) {
+      return responseObj;
+    }
+    return [];
+  } catch (e) {
+    Snackbar.show({ title: 'Unable to connect to the servers.' });
+    console.log(e);
+    return [];
+  }
+}
+
 export async function addMarker(locationObj) {
   const [long, lat] = locationObj.center;
   try {
