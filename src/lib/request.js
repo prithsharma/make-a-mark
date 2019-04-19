@@ -47,7 +47,7 @@ function executeRequest(urlSuffix, method, params) {
     method,
     headers,
   };
-  let url = `http://${HOST}${urlSuffix}`;
+  let url = `https://${HOST}${urlSuffix}`;
 
   if (method === 'GET') {
     url += createQueryParamString(params);
