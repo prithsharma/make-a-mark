@@ -1,5 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import Home from './index';
+import { HomeScreen } from './index';
 
-storiesOf('Home', module).add('default', () => <Home />);
+storiesOf('Home', module).add('default', () => <HomeScreen />);

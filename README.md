@@ -8,6 +8,9 @@ React Native based mobile app experimenting with map rendering in apps.
     height="512"
 />
 
+yarn storybook
+yarn rn start
+
 ## Notes
 
 - Uses the [Mapbox Maps API](https://www.mapbox.com/maps/) for rendering maps and geocoding.
