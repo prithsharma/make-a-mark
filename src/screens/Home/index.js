@@ -3,12 +3,17 @@ import {
   Dimensions,
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 import Geocoder from '../../components/Geocoder';
 import MapView from '../../components/MapView';
 import LocationCard from '../../components/LocationCard';
-import { getMarkedLocations } from '../../state';
+import {
+  markLocation,
+  // unmarkLocation,
+  getMarkedLocations,
+} from '../../state';
 import styles from './index.styles';
 
 const { width: vpWidth } = Dimensions.get('window');
@@ -26,6 +31,8 @@ export class HomeScreen extends Component {
   }
 
   onLocationSelect = (locationObj) => {
+    const { dispatch } = this.props;
+
     this.setState(
       (state) => {
         let newMarkers = state.markers;
@@ -44,6 +51,7 @@ export class HomeScreen extends Component {
         setTimeout(() => this.carousel.snapToItem(index + 1, true, false), 100);
       },
     );
+    dispatch(markLocation(locationObj));
   }
 
   reset = () => {
@@ -113,6 +121,10 @@ export class HomeScreen extends Component {
     );
   }
 }
+
+HomeScreen.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
