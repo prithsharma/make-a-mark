@@ -2,6 +2,8 @@
 
 React Native based mobile app experimenting with map rendering in apps.
 
+## APK for download - [v0.1](https://github.com/prithsharma/make-a-mark/releases/download/0.1/make-a-mark.apk)
+
 App Demo             |    Storybook
 :-------------------:|:-------------------------:
 <img src="./demo/make-a-mark.gif" alt="Demo GIF" width="432" height="768" /> | <img src="./demo/storybook.gif" alt="Demo GIF" width="432" height="768" />
@@ -36,6 +38,8 @@ needed.
 of failure. This is understood and a possible way to work around this is to have a fallback UX
 devoid of the geocoding search(only map based). And have a fallback third party service in case the
 primary service doesn't work. None of them were easy enough for v1.
+- The app assumes **Germany** as the default area of operation, limiting search results to Germany
+and the default map view to Germany.
 
 ## Notes
 
