@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import {
   Dimensions,
-  StyleSheet,
   View,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import Geocoder from '../../components/Geocoder';
 import MapView from '../../components/MapView';
 import LocationCard from '../../components/LocationCard';
+import styles from './index.styles';
 
-let styles;
+
 const { width: vpWidth } = Dimensions.get('window');
 const CAROUSEL_WIDTH = vpWidth;
 const CAROUSEL_ITEM_WIDTH = vpWidth * 0.67;
@@ -112,21 +112,3 @@ export default class HomeScreen extends Component {
     );
   }
 }
-
-styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  searchBar: {
-    position: 'absolute',
-    top: 10,
-  },
-  markersCarousel: {
-    position: 'absolute',
-    bottom: 10,
-  },
-  slideStyle: {
-    minHeight: 140,
-    justifyContent: 'center',
-  },
-});
