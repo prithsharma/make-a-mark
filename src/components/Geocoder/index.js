@@ -126,7 +126,7 @@ export default class Geocoder extends Component {
       <View style={[styles.container, style]}>
         <View style={styles.inputContainer}>
           <TextInput
-            onChangeText={debounce(text => this.onQuery(text), 500)}
+            onChangeText={debounce(text => this.onQuery(text), 400)}
             style={styles.input}
             ref={(ref) => { this.input = ref; }}
           />
@@ -160,7 +160,6 @@ Geocoder.defaultProps = {
 
 styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: '90%',
     alignSelf: 'center',
     backgroundColor: 'rgba(216, 216, 216, 0.8)',
