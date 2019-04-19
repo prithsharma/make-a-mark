@@ -14,7 +14,7 @@ the storybook. Helpful for manual testing and independently operating on compone
 - `yarn android` for building and installing a debug build to an attached Android device
 - `yarn lint .` for running lint tests.
 - The dev setup is dependent on the environment config file(`.env`) that contains configuration
-keys and secrets that the app needs. (Please get in touch with me for getting access to the env).
+keys and secrets that the app needs. (Please get in touch with me for getting env secrets).
 Sample env file [here](./env).
 - The app communicates to the [API server](https://github.com/prithsharma/marker-api) using an
 agreed upon pre-shared access token, based on JWT.
