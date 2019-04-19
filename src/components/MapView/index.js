@@ -29,7 +29,7 @@ export default class MapView extends Component {
       this.map.setCamera({
         centerCoordinate: newProps.center,
         duration: 500,
-        zoom: 12,
+        zoom: 15,
       });
     }
   }
