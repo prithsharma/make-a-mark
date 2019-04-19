@@ -4,7 +4,7 @@ React Native based mobile app experimenting with map rendering in apps.
 
 App Demo             |    Storybook
 :-------------------:|:-------------------------:
-<img src="./demo/make-a-mark.gif" alt="Demo GIF" width="288" height="512" /> | <img src="./demo/storybook.gif" alt="Demo GIF" width="288" height="512" />
+<img src="./demo/make-a-mark.gif" alt="Demo GIF" width="432" height="768" /> | <img src="./demo/storybook.gif" alt="Demo GIF" width="432" height="768" />
 
 ## Instructions for dev setup
 
