@@ -68,6 +68,7 @@ styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     flex: 1,
