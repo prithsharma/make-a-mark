@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
   ViewPropTypes,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 let styles;
 
@@ -14,12 +16,25 @@ export default function LocationCard(props) {
     title,
     address,
     style,
+    showDelete,
+    onDelete,
   } = props;
   return (
     <View style={[styles.container, style]}>
-      <Text style={styles.title} numberOfLines={2}>
-        {title}
-      </Text>
+      <View style={styles.row}>
+        <Text style={styles.title} numberOfLines={2}>
+          {title}
+        </Text>
+        {showDelete && (
+          <TouchableOpacity onPress={onDelete}>
+            <Icon
+              name="md-trash"
+              size={24}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
       <Text style={styles.subtext} numberOfLines={3}>
         {address}
       </Text>
@@ -31,11 +46,14 @@ LocationCard.propTypes = {
   title: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   // onPress: PropTypes.function,
-  // onDelete: PropTypes.function,
+  showDelete: PropTypes.bool,
+  onDelete: PropTypes.func,
   style: ViewPropTypes.style,
 };
 LocationCard.defaultProps = {
   style: {},
+  showDelete: false,
+  onDelete: Function.prototype,
 };
 
 styles = StyleSheet.create({
@@ -48,12 +66,19 @@ styles = StyleSheet.create({
     height: 120,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
   },
+  row: {
+    flexDirection: 'row',
+  },
   title: {
+    flex: 1,
     fontWeight: 'bold',
     fontSize: 20,
   },
   subtext: {
     fontSize: 16,
     marginTop: 10,
+  },
+  icon: {
+    paddingHorizontal: 5,
   },
 });
