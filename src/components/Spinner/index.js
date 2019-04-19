@@ -20,3 +20,5 @@ SectionSpinner.defaultProps = {
   color: '#0C161C',
   visible: false,
 };
+
+export FullScreenSpinner from './FullScreenSpinner';
