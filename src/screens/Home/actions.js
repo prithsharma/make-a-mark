@@ -1,5 +1,5 @@
 import Snackbar from 'react-native-snackbar';
-import { post, del } from '../../lib/request';
+import { post } from '../../lib/request';
 
 
 // eslint-disable-next-line import/prefer-default-export
@@ -21,8 +21,7 @@ export async function addMarker(locationObj) {
 export async function removeMarker(locationObj) {
   const [long, lat] = locationObj.center;
   try {
-    const response = await del('/markers', { lat, long });
-    await response.json();
+    const response = await post('/markers/delete', { lat, long });
 
     if (!response.ok) {
       Snackbar.show({ title: 'Error syncing with the servers.' });

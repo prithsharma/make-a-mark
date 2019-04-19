@@ -55,7 +55,6 @@ function executeRequest(urlSuffix, method, params) {
     options.body = JSON.stringify(params);
   }
 
-  console.log(url);
   return fetch(url, options);
 }
 
