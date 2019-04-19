@@ -8,6 +8,7 @@ import Geocoder from '../../components/Geocoder';
 import MapView from '../../components/MapView';
 import LocationCard from '../../components/LocationCard';
 import styles from './index.styles';
+import { addMarker, removeMarker } from './actions';
 
 
 const { width: vpWidth } = Dimensions.get('window');
@@ -40,9 +41,11 @@ export default class HomeScreen extends Component {
       () => {
         const { markers } = this.state;
         const index = markers.findIndex(marker => marker.id === locationObj.id);
-        setTimeout(() => this.carousel.snapToItem(index + 1, true, false), 100);
+        setTimeout(() => this.carousel.snapToItem(index + 1, true, false), 50);
       },
     );
+
+    addMarker(locationObj);
   }
 
   reset = () => {
@@ -64,7 +67,25 @@ export default class HomeScreen extends Component {
     }
   }
 
-  static renderLocationCard({ item }) {
+  removeFromState(item) {
+    const newCarouselIndex = this.carousel.currentIndex - 1;
+    this.carousel.snapToPrev();
+    this.loadMarker(newCarouselIndex);
+
+    this.setState(
+      (state) => {
+        const newMarkers = state.markers.filter(marker => marker.id !== item.id);
+        return {
+          ...state,
+          markers: newMarkers,
+        };
+      },
+    );
+
+    removeMarker(item);
+  }
+
+  renderLocationCard = ({ item }) => {
     if (item.id === 'HELP') {
       return (
         <LocationCard
@@ -80,6 +101,8 @@ export default class HomeScreen extends Component {
         style={styles.markersCarousel}
         title={item.text}
         address={item.place_name}
+        showDelete
+        onDelete={() => this.removeFromState(item)}
       />
     );
   }
@@ -100,7 +123,7 @@ export default class HomeScreen extends Component {
         <Carousel
           ref={(c) => { this.carousel = c; }}
           data={[HELP_SLIDE, ...markers]}
-          renderItem={this.constructor.renderLocationCard}
+          renderItem={this.renderLocationCard}
           sliderWidth={CAROUSEL_WIDTH}
           slideStyle={styles.slideStyle}
           itemWidth={CAROUSEL_ITEM_WIDTH}
