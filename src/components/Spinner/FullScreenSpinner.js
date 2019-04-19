@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
-import SectionSpinner from './index';
+import SectionSpinner from './SectionSpinner';
 
 const colors = {
   white: '#FFFFFF',

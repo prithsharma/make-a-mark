@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Snackbar from 'react-native-snackbar';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
-import Spinner from '../Spinner';
+import { SectionSpinner as Spinner } from '../Spinner';
 import GeocodingClient from '../../lib/mapsClient';
 
 
