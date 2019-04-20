@@ -55,6 +55,15 @@ and volatile for unit tests to provide high value.
 - There is a pending PR for Redux integration but I intentionally stayed away from introducing
 Redux to the app. Especially when all the first-round features were limited to one container
 component and could be handled easily with component state.
+- Storing just the coordinates for locations is probably an **INCOMPLETE** design given lack of geocoding
+knowhow. One coordinate might have several locations marked on it.
+  - However, the geocoding service used advises against using any property value from their
+  responses since they are volatile and can change even in a single API version. Using the `id`
+  from the location objects from the maps service as identifiers for places was tried, but given
+  away due to this constraint from the service.
+  - On further research, I found that the Google Maps Geocoding service indeed mentions 'Place ID'
+  as the unique identifier for a place in the Google Places database. As an **immediate improvement**,
+  I'd change the API schema to store extra information other than the coordinates.
 
 ### TODOs
 
@@ -68,9 +77,18 @@ set of features.
 - [ ] Refactor out all geocoding service interactions to a service for better abstraction and
 isolation. This is not straightforward. Would lead to the `Geocoder` component getting coupled with
 a service and thus not easily reusable.
+- [ ] Update the API design to store extra information other than a coordinate to uniquely identify
+a place. Could be a place ID but Mapbox mentions this can change, so it won't be enough at least
+with Mapbox.
+- [ ] Deliberate on whether moving the Geocoding service to the backend makes sense. The provider
+gives a dedicated client-side JS library for Geocoding interactions. Moving that interaction to the
+backend would mean adding another API layer for relaying that communication to the client. Was out
+of the scope for v1 of the exercise.
 
 ### Known Issues
 
+- Due to multiple addresses on the same coordinate ( per the geocoding service), sometimes the
+address marked and address that shows might differ between sessions.
 - Due to inaccuracies in coordinate decimal comparisons between storing and operating, sometimes
 the delete operation on the markers doesn't work well.
   - This is primarily because the coordinate is being stored as a decimal and the coordinate matching
