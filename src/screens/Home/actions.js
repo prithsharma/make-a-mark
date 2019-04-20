@@ -20,7 +20,8 @@ export async function getAllMarkers() {
           }).send();
 
           if (result && result.body.features.length > 0) {
-            return result.body.features[0];
+            return result.body.features
+              .find(f => f.center[0] === longitude && f.center[1] === latitude);
           }
           return null;
         }),
